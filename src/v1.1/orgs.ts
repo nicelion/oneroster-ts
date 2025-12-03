@@ -10,16 +10,18 @@
  
 */
 
-import { z } from 'zod/v4';
-import { OROrgType, ORStatusType } from './enumerations';
-import { createCsvArrayCodec, ORDateTime, parentSourcedIdSchema } from '@pkg/common';
+import { z } from "zod/v4";
+import { OROrgType, ORStatusType } from "./enumerations";
+import { createCsvArrayCodec, ORDateTime, parentSourcedIdSchema } from "@pkg/common";
 
 export const OROrg = z.object({
-	sourcedId: z.string(),
-	status: ORStatusType,
-	dateLastModified: ORDateTime,
-	name: z.string(),
-	type: OROrgType,
-	identifier: z.string().optional().nullable(),
-	parentSourcedId: parentSourcedIdSchema
+  sourcedId: z.string(),
+  status: ORStatusType,
+  dateLastModified: ORDateTime,
+  name: z.string(),
+  type: OROrgType,
+  identifier: z.string().optional().nullable(),
+  parentSourcedId: parentSourcedIdSchema,
 });
+
+export type OROrg = z.infer<typeof OROrg>;

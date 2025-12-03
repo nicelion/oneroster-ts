@@ -10,6 +10,10 @@
  
 */
 
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
+
+export type NormalizeOptional<T> = {
+  [K in keyof T]-?: undefined extends T[K] ? T[K] : T[K];
+};
 
 export const generateORDate = () => faker.date.recent().toISOString();

@@ -10,8 +10,9 @@
  
 */
 
-import { generateUser } from '@pkg/generators/v1.1/users';
-import { ORUser } from '@pkg/v1.1/users';
+import { generateOrg } from "@pkg/generators/v1.1/orgs";
+import { generateUser } from "@pkg/generators/v1.1/users";
+import { ORUser } from "@pkg/v1.1/users";
 
 // const UserJson: ORUser = {
 // 	sourcedId: 'sdlkfmslk-lsrmf',
@@ -48,10 +49,17 @@ import { ORUser } from '@pkg/v1.1/users';
 // console.log({ UserJsonValidated, UserCsvValidated });
 
 const generatedUser = generateUser({
-	orgSourcedId: 'sldlkmfl',
-	allowedGrades: ['01', '03']
+  orgSourcedId: "sldlkmfl",
+  allowedGrades: ["01", "03"],
 });
 const encoded = ORUser.encode(generatedUser);
 const decoded = ORUser.decode(encoded);
 
 console.log({ generatedUser, encoded, decoded });
+
+const generatedOrg = generateOrg(
+  { level: "high" },
+  { parentSourcedId: ["helsd;d"], "metadata.state": "SC" },
+);
+
+console.log(generatedOrg);
