@@ -12,7 +12,10 @@
 
 import { faker } from "@faker-js/faker";
 import { generateOrg } from "@pkg/generators/v1.1/base/orgs";
-import { generateUser } from "@pkg/generators/v1.1/base/users";
+import {
+  generateUser,
+  generateUsersForSchoolByStudentCount,
+} from "@pkg/generators/v1.1/base/users";
 import { generateFamily } from "@pkg/generators/v1.1/utility/users/families";
 import {
   generateAdministrator,
@@ -152,49 +155,59 @@ const NUM_OF_TEACHERS = 0;
 const NUM_OF_STUDENTS = 5;
 const NUM_OF_ADMINS = 0;
 
-const admins = Array.from({ length: NUM_OF_ADMINS }).map((i) =>
-  generateAdministrator(
-    { orgDomain: ORG_DOMAIN },
-    {
-      orgSourcedId: school.sourcedId,
-    },
-  ),
-);
+// const admins = Array.from({ length: NUM_OF_ADMINS }).map((i) =>
+//   generateAdministrator(
+//     { orgDomain: ORG_DOMAIN },
+//     {
+//       orgSourcedId: school.sourcedId,
+//     },
+//   ),
+// );
 
-const students = Array.from({ length: NUM_OF_STUDENTS }).map((i) =>
-  generateStudent(
-    {
-      allowedGrades: ["09", "10", "11", "12"],
-      orgDomain: ORG_DOMAIN,
-    },
-    {
-      orgSourcedId: school.sourcedId,
-    },
-  ),
-);
+// const students = Array.from({ length: NUM_OF_STUDENTS }).map((i) =>
+//   generateStudent(
+//     {
+//       allowedGrades: ["09", "10", "11", "12"],
+//       orgDomain: ORG_DOMAIN,
+//     },
+//     {
+//       orgSourcedId: school.sourcedId,
+//     },
+//   ),
+// );
 
-const teachers = Array.from({ length: NUM_OF_TEACHERS }).map((i) =>
-  generateTeacher(
-    {
-      orgDomain: ORG_DOMAIN,
-    },
-    {
-      orgSourcedId: school.sourcedId,
-    },
-  ),
-);
+// const teachers = Array.from({ length: NUM_OF_TEACHERS }).map((i) =>
+//   generateTeacher(
+//     {
+//       orgDomain: ORG_DOMAIN,
+//     },
+//     {
+//       orgSourcedId: school.sourcedId,
+//     },
+//   ),
+// );
 
-const { data: orgs } = z.array(OROrg).safeEncode([school, district]);
-const { data: users } = z.array(ORUser).safeEncode([...students, ...admins, ...teachers]);
+// const { data: orgs } = z.array(OROrg).safeEncode([school, district]);
+// const { data: users } = z.array(ORUser).safeEncode([...students, ...admins, ...teachers]);
 
-console.log({ orgs, users });
+// console.log({ orgs, users });
 
-createCsvWriter({
-  header: OrgCsvHeaders,
-  path: "./outputs/test-1/orgs.csv",
-}).writeRecords([...orgs!]);
+// createCsvWriter({
+//   header: OrgCsvHeaders,
+//   path: "./outputs/test-1/orgs.csv",
+// }).writeRecords([...orgs!]);
 
-createCsvWriter({
-  header: UsersCsvHeaders,
-  path: "./outputs/test-1/users.csv",
-}).writeRecords([...users!]);
+// createCsvWriter({
+//   header: UsersCsvHeaders,
+//   path: "./outputs/test-1/users.csv",
+// }).writeRecords([...users!]);
+
+const fam = generateUsersForSchoolByStudentCount({
+  allowedGrades: ["09", "10", "11", "12"],
+  maxParents: 2,
+  maxSiblings: 5,
+  totalStudents: 43_439,
+});
+
+const decode = z.array(ORUser).encode(fam);
+console.log({ decode, length: fam.length });
