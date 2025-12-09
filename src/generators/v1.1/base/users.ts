@@ -13,14 +13,10 @@
 import { ORUser } from "@pkg/v1.1/users";
 import { faker } from "@faker-js/faker";
 import { ORGrade, ORRoleType } from "@pkg/v1.1/enumerations";
-import { generateORDate, NormalizeOptional } from "../common";
+import { generateORDate, NormalizeOptional } from "../../common";
 import { RequiredInput } from "@pkg/common";
+import { GenerateUserRequired } from "../types";
 
-type GenerateUserRequired = {
-  orgSourcedId: string;
-  orgDomain?: string;
-  allowedGrades?: ORGrade[];
-};
 export const generateUser = (
   required: GenerateUserRequired,
   initial?: Partial<ORUser>,
@@ -29,11 +25,23 @@ export const generateUser = (
   const familyName = initial?.familyName ?? faker.person.lastName();
   const middleName = initial?.middleName ?? faker.person.middleName();
 
-  const grades =
-    (initial?.grades ?? required.allowedGrades)
-      ? faker.helpers.arrayElement([required.allowedGrades])
-      : [];
+  let grades = [];
+
+  // (initial?.grades ?? required.allowedGrades)
+  // ? faker.helpers.arrayElement([required.allowedGrades])
+  // : [];
+
+  if (!initial?.grades) {
+    grades.push(faker.helpers.arrayElement(required.allowedGrades ?? ["09"]));
+  }
   const phone = faker.phone.number({ style: "international" });
+
+  let role = initial?.role ?? faker.helpers.arrayElement([...ORRoleType.options]);
+
+  // Only students should have grades.
+  if (role !== "student") {
+    grades = [];
+  }
 
   return {
     ...initial,
@@ -41,8 +49,8 @@ export const generateUser = (
     status: initial?.status ?? "active",
     dateLastModified: initial?.dateLastModified ?? generateORDate(),
     enabledUser: initial?.enabledUser ?? "true",
-    orgSourcedId: required.orgSourcedId,
-    role: initial?.role ?? faker.helpers.arrayElement([...ORRoleType.options]),
+    orgSourcedId: initial?.orgSourcedId ?? faker.string.uuid(),
+    role,
     username: givenName + familyName,
     userIds: [],
     givenName,

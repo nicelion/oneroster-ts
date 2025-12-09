@@ -11,7 +11,7 @@
 */
 
 import { OROrg } from "@pkg/v1.1/orgs";
-import { generateORDate, NormalizeOptional } from "../common";
+import { generateORDate, NormalizeOptional } from "../../common";
 import { faker } from "@faker-js/faker";
 import { OROrgType } from "@pkg/v1.1/enumerations";
 import {
@@ -21,8 +21,8 @@ import {
   HighSchoolSuffixes,
   MiddleSchoolSuffixes,
   SchoolLevel,
-} from "../orgSuffixes";
-import { capitalize } from "../utils";
+} from "../../orgSuffixes";
+import { capitalize } from "../../utils";
 
 type OrgOptions = {
   level?: "elementary" | "middle" | "high";

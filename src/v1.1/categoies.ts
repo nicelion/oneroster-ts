@@ -10,13 +10,25 @@
  
 */
 
-import { ORDateTime, sourcedIdSchema } from '@pkg/common';
-import { z } from 'zod/v4';
-import { ORStatusType } from './enumerations';
+import { ORDateTime, sourcedIdSchema } from "@pkg/common";
+import { z } from "zod/v4";
+import { ORStatusType } from "./enumerations";
 
 export const ORCategories = z.object({
-	sourcedId: sourcedIdSchema,
-	status: ORStatusType,
-	dateLastModified: ORDateTime,
-	title: z.string()
+  /** Unique ID for the category. */
+  sourcedId: sourcedIdSchema,
+  /** 	
+	See section 4.13.8 [OneRoster, 20a] for the enumeration list.
+
+	This MUST NOT be used for the Bulk mode.
+ */
+  status: ORStatusType,
+  /** 	
+	The date that this record was last modified.
+
+	This MUST NOT be used for the Bulk mode.
+ */
+  dateLastModified: ORDateTime,
+  /** The title assigned to the set of lineItems to denote its nature e.g. homework, essays, etc. */
+  title: z.string(),
 });
