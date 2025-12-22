@@ -11,23 +11,23 @@
 */
 
 import { faker } from "@faker-js/faker";
-import { generateOrg } from "@pkg/generators/v1.1/base/orgs";
+import { generateOrg } from "../src/generators/v1.1/base/orgs";
 import {
   generateUser,
   generateUsersForSchoolByStudentCount,
-} from "@pkg/generators/v1.1/base/users";
-import { generateFamily } from "@pkg/generators/v1.1/utility/users/families";
+} from "../src/generators/v1.1/base/users";
+import { generateFamily } from "../src/generators/v1.1/utility/users/families";
 import {
   generateAdministrator,
   generateParent,
   generateStudent,
   generateTeacher,
-} from "@pkg/generators/v1.1/utility/users/userByRoles";
-import { OROrg } from "@pkg/v1.1/orgs";
-import { ORUser } from "@pkg/v1.1/users";
+} from "../src/generators/v1.1/utility/users/userByRoles";
+import { OROrg } from "../src/v1.1/orgs";
+import { ORUser } from "../src/v1.1/users";
 import z from "zod";
 import { createObjectCsvWriter as createCsvWriter } from "csv-writer";
-import { OrgCsvHeaders, UsersCsvHeaders } from "@pkg/generators/v1.1/csv-headers";
+import { OrgCsvHeaders, UsersCsvHeaders } from "../src/generators/v1.1/csv-headers";
 
 // const UserJson: ORUser = {
 // 	sourcedId: 'sdlkfmslk-lsrmf',
@@ -131,29 +131,64 @@ const district = generateOrg(
   {},
   {
     type: "district",
-    name: "Greenville County Schools",
+    name: "The School District of Greenville County",
     "metadata.city": "Greenville",
     "metadata.county": "Greenville",
     "metadata.state": "SC",
+    identifier: "4502310",
   },
 );
 
-const school = generateOrg(
-  { level: "high" },
+const schools: OROrg[] = [];
+const students: ORUser[] = [];
+const schoolsToGenerate: Partial<OROrg & { enrollment: number }>[] = [
   {
-    name: "JL Mann High School",
-    "metadata.county": "Greenville",
-    "metadata.city": "Greenville",
-    "metadata.state": "SC",
-    type: "school",
+    name: "J.L. Mann High School",
+    identifier: "450231000568",
     parentSourcedId: [district.sourcedId],
+    enrollment: 10,
   },
-);
+];
 
-const ORG_DOMAIN = "@mann.com";
-const NUM_OF_TEACHERS = 0;
-const NUM_OF_STUDENTS = 5;
-const NUM_OF_ADMINS = 0;
+schoolsToGenerate.forEach((s) => {
+  schools.push(
+    generateOrg(
+      { level: "high" },
+      {
+        ...s,
+      },
+    ),
+  );
+
+  students.push(
+    ...generateUsersForSchoolByStudentCount({
+      allowedGrades: ["09", "10", "11", "12"],
+      totalStudents: s.enrollment!,
+      maxParents: 0,
+      maxSiblings: 1,
+      orgDomain: "@test.greenville.com",
+    }),
+  );
+});
+
+console.log({ schools, students });
+
+// const school = generateOrg(
+//   { level: "high" },
+//   {
+//     name: "JL Mann High School",
+//     "metadata.county": "Greenville",
+//     "metadata.city": "Greenville",
+//     "metadata.state": "SC",
+//     type: "school",
+//     parentSourcedId: [district.sourcedId],
+//   },
+// );
+
+// const ORG_DOMAIN = "@mann.com";
+// const NUM_OF_TEACHERS = 0;
+// const NUM_OF_STUDENTS = 5;
+// const NUM_OF_ADMINS = 0;
 
 // const admins = Array.from({ length: NUM_OF_ADMINS }).map((i) =>
 //   generateAdministrator(
@@ -202,12 +237,12 @@ const NUM_OF_ADMINS = 0;
 //   path: "./outputs/test-1/users.csv",
 // }).writeRecords([...users!]);
 
-const fam = generateUsersForSchoolByStudentCount({
-  allowedGrades: ["09", "10", "11", "12"],
-  maxParents: 2,
-  maxSiblings: 5,
-  totalStudents: 43_439,
-});
+// const fam = generateUsersForSchoolByStudentCount({
+//   allowedGrades: ["09", "10", "11", "12"],
+//   maxParents: 2,
+//   maxSiblings: 5,
+//   totalStudents: 43_439,
+// });
 
-const decode = z.array(ORUser).encode(fam);
-console.log({ decode, length: fam.length });
+// const decode = z.array(ORUser).encode(fam);
+// console.log({ decode, length: fam.length });

@@ -10,7 +10,7 @@
  
 */
 
-import { createCsvArrayCodec, ORDateTime, sourcedIdSchema } from "@pkg/common";
+import { createCsvArrayCodec, ORDateTime, sourcedIdSchema } from "../common";
 import { z } from "zod/v4";
 import { ORGrade, ORStatusType } from "./enumerations";
 

@@ -9,3 +9,7 @@
  Copyright (c) 2025 Nice Lion Technologies LLC. All Rights Reserved.
  
 */
+
+// export * from "./v1.1/index";
+
+export const sayHello = () => console.log("hello");

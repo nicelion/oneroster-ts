@@ -12,7 +12,7 @@
 
 import { z } from "zod/v4";
 import { ORStatusType } from "./enumerations";
-import { ORDateTime, sourcedIdSchema } from "@pkg/common";
+import { ORDateTime, sourcedIdSchema } from "../common";
 
 export const ORCategories = z.object({
   /** Unique ID for the category. */

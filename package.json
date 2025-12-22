@@ -1,14 +1,27 @@
 {
-  "name": "oneroster-ts",
+  "name": "@nicelion/oneroster-ts",
   "version": "0.0.1",
   "description": "",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "play": "tsx --tsconfig tsconfig.playground.json playground/index.ts"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./v1.1": {
+      "types": "./dist/v1.1/index.d.ts",
+      "require": "./dist/v1.1/index.cjs",
+      "import": "./dist/v1.1/index.js"
+    }
   },
   "keywords": [],
   "author": "",

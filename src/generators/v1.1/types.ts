@@ -10,7 +10,7 @@
  
 */
 
-import { ORGrade } from "@pkg/v1.1/enumerations";
+import { ORGrade } from "../../v1.1/enumerations";
 
 export type GenerateUserRequired = {
   orgDomain?: string;

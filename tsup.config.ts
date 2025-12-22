@@ -9,19 +9,22 @@
  Copyright (c) 2025 Nice Lion Technologies LLC. All Rights Reserved.
  
 */
-import { defineConfig } from 'tsup';
+import { defineConfig } from "tsup";
 
 export default defineConfig({
-	entry: ['src/index.ts'],
-	outDir: 'dist',
-	format: ['cjs', 'esm'], // ← Dual outputs
-	dts: true, // ← Generate .d.ts
-	sourcemap: true,
-	clean: true,
-	treeshake: true,
-	minify: false, // usually no need to minify internal libs
-	splitting: false, // safe & simpler for libs consumed by Node + bundlers
-	target: 'es2020',
-	// If you want to be explicit:
-	cjsInterop: true
+  entry: {
+    index: "src/index.ts",
+    "v1.1/index": "src/v1.1/index.ts",
+  },
+  outDir: "dist",
+  format: ["cjs", "esm"], // ← Dual outputs
+  dts: true, // ← Generate .d.ts
+  sourcemap: true,
+  clean: true,
+  treeshake: true,
+  minify: false, // usually no need to minify internal libs
+  splitting: false, // safe & simpler for libs consumed by Node + bundlers
+  target: "es2020",
+  // If you want to be explicit:
+  cjsInterop: true,
 });

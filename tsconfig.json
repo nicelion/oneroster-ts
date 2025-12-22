@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "Bundler", // or "NodeNext" if that's what you're using
+    "module": "preserve",
+    "moduleResolution": "bundler", // or "NodeNext" if that's what you're using
     "strict": true,
     "declaration": true,
     "declarationMap": true,
@@ -16,8 +16,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
      "paths": {
-      "@pkg/*": ["src/*"],       // ← your alias
-      "@pkg/index": ["src/index.ts"]
+      // "@pkg/*": ["src/*"],       // ← your alias
+      // "@pkg/index": ["src/index.ts"]
       // or use your real package name if you prefer:
       // "@repo/shared-utils": ["src/index.ts"],
       // "@repo/shared-utils/*": ["src/*"]

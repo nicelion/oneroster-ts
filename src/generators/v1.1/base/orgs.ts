@@ -10,10 +10,10 @@
  
 */
 
-import { OROrg } from "@pkg/v1.1/orgs";
+import { OROrg } from "../../../v1.1/orgs";
 import { generateORDate, NormalizeOptional } from "../../common";
 import { faker } from "@faker-js/faker";
-import { OROrgType } from "@pkg/v1.1/enumerations";
+import { OROrgType } from "../../../v1.1/enumerations";
 import {
   BaseSchoolSuffixes,
   DistrictSuffixes,

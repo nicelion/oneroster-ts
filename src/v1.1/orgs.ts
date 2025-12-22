@@ -12,7 +12,7 @@
 
 import { z } from "zod/v4";
 import { OROrgType, ORStatusType } from "./enumerations";
-import { createCsvArrayCodec, ORDateTime, parentSourcedIdSchema } from "@pkg/common";
+import { createCsvArrayCodec, ORDateTime, parentSourcedIdSchema } from "../common";
 
 /**
  * Orgs represent the organizational structure of your school district.
@@ -52,3 +52,13 @@ export const OROrg = z.object({
 export type OROrg<TMode extends "default" | "csv" = "default"> = TMode extends "default"
   ? z.infer<typeof OROrg>
   : z.input<typeof OROrg>;
+
+export const decodeOrgCsv = (input: any[] | string) => {
+  let mod = input;
+
+  if (!Array.isArray(input)) {
+    mod = input.split(",");
+  }
+  // @ts-ignore
+  return z.array(OROrg).safeDecode(mod);
+};

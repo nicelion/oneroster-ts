@@ -10,7 +10,7 @@
  
 */
 
-import { ORDateTime, sourcedIdSchema } from "@pkg/common";
+import { ORDateTime, sourcedIdSchema } from "../common";
 import { z } from "zod/v4";
 import { ORRoleType, ORStatusType } from "./enumerations";
 

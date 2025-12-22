@@ -10,15 +10,7 @@
  
 */
 
-import {
-  createCsvArrayCodec,
-  csvArrayCodec,
-  CSVListOf,
-  ORBool,
-  ORDateTime,
-  sourcedIdSchema,
-  zCSVList,
-} from "@pkg/common";
+import { createCsvArrayCodec, csvArrayCodec, ORBool, ORDateTime, sourcedIdSchema } from "../common";
 import { ORGrade, ORRoleType, ORStatusType } from "./enumerations";
 import { z, ZodArray, ZodType } from "zod/v4";
 
@@ -134,3 +126,15 @@ export const ORUser = z.object({
 export type ORUser<TMode extends "default" | "csv" = "default"> = TMode extends "default"
   ? z.infer<typeof ORUser>
   : z.input<typeof ORUser>;
+
+export const decodeUsersCsv = (input: any[] | string) => {
+  let mod = input;
+
+  return input;
+
+  // if (!Array.isArray(input)) {
+  //   mod = input.split(",");
+  // }
+  // // @ts-ignore
+  // return z.array(ORUser).safeDecode(mod);
+};

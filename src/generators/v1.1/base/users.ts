@@ -10,11 +10,11 @@
  
 */
 
-import { ORUser } from "@pkg/v1.1/users";
+import { ORUser } from "../../../v1.1/users";
 import { faker } from "@faker-js/faker";
-import { ORGrade, ORRoleType } from "@pkg/v1.1/enumerations";
+import { ORGrade, ORRoleType } from "../../../v1.1/enumerations";
 import { generateORDate, NormalizeOptional } from "../../common";
-import { RequiredInput } from "@pkg/common";
+import { RequiredInput } from "../../../common";
 import { GenerateUserRequired } from "../types";
 
 export const generateUser = (

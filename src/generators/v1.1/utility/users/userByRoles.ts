@@ -10,7 +10,7 @@
  
 */
 
-import { ORUser } from "@pkg/v1.1/users";
+import { ORUser } from "../../../../v1.1/users";
 import { GenerateUserRequired } from "../../types";
 import { generateUser } from "../../base/users";
 

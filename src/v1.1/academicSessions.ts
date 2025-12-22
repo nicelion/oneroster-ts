@@ -12,7 +12,7 @@
 
 import { z } from "zod/v4";
 import { ORSessionType, ORStatusType } from "./enumerations";
-import { ORDateTime, parentSourcedIdSchema } from "@pkg/common";
+import { ORDateTime, parentSourcedIdSchema } from "../common";
 
 /**
  * Academic Sessions represent time segments of your school year (e.g., semesters, terms, marking periods).
