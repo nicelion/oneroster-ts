@@ -146,7 +146,7 @@ const schoolsToGenerate: Partial<OROrg & { enrollment: number }>[] = [
     name: "J.L. Mann High School",
     identifier: "450231000568",
     parentSourcedId: [district.sourcedId],
-    enrollment: 10,
+    enrollment: 2,
   },
 ];
 
@@ -227,15 +227,15 @@ console.log({ schools, students });
 
 // console.log({ orgs, users });
 
-// createCsvWriter({
-//   header: OrgCsvHeaders,
-//   path: "./outputs/test-1/orgs.csv",
-// }).writeRecords([...orgs!]);
+createCsvWriter({
+  header: OrgCsvHeaders,
+  path: "./outputs/test-1/orgs.csv",
+}).writeRecords([...schools!]);
 
-// createCsvWriter({
-//   header: UsersCsvHeaders,
-//   path: "./outputs/test-1/users.csv",
-// }).writeRecords([...users!]);
+createCsvWriter({
+  header: UsersCsvHeaders,
+  path: "./outputs/test-1/users.csv",
+}).writeRecords([...students!]);
 
 // const fam = generateUsersForSchoolByStudentCount({
 //   allowedGrades: ["09", "10", "11", "12"],

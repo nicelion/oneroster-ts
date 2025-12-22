@@ -2,8 +2,8 @@
   "name": "@nicelion/oneroster-ts",
   "version": "0.0.1",
   "description": "",
-  "main": "./dist/index.js",
-  "module": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {

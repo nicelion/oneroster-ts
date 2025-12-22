@@ -127,10 +127,10 @@ export type ORUser<TMode extends "default" | "csv" = "default"> = TMode extends 
   ? z.infer<typeof ORUser>
   : z.input<typeof ORUser>;
 
-export const decodeUsersCsv = (input: any[] | string) => {
+export const decodeUsersCsv = (input: any[] | string): ORUser[] => {
   let mod = input;
 
-  return input;
+  return input as ORUser[];
 
   // if (!Array.isArray(input)) {
   //   mod = input.split(",");
